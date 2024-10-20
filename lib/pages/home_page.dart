@@ -41,7 +41,6 @@ class HomePage extends StatelessWidget {
                   return Text(snapshot.error.toString());
                 } 
                 else {
-                  PetsProvider provider = Provider.of<PetsProvider>(context);
                   return GridView.builder(
                   shrinkWrap: true,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -50,8 +49,8 @@ class HomePage extends StatelessWidget {
                         (MediaQuery.of(context).size.height),
                   ),
                   physics: const NeverScrollableScrollPhysics(), // <- Here
-                  itemCount: provider.pets.length,
-                  itemBuilder: (context, index) => PetCard(pet: provider.pets[index]));
+                  itemCount: context.watch<PetsProvider>().pets.length,
+                  itemBuilder: (context, index) => PetCard(pet: context.watch<PetsProvider>().pets[index]));
                 }
                 
               },
